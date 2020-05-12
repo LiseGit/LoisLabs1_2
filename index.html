@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LR 1-2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<!-- @author: Glushchenko-->
+    <div class="root">
+        <div class="work-area">
+            <div id='formula-box'>
+                <input id="formula">formula</input>
+            </div>
+            <div id="user-work-area">
+                <div class="checks">
+                    <div style="position:relative;">
+                        это СДНФ?
+                        <span id='isFormula-answer'></span>
+                    </div>
+                    <div>
+                        <label class="container">Да
+                            <input type="radio" name="isFormula" value="true">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">Нет
+                            <input type="radio" name="isFormula" value="false">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="checks">
+                    <div style="position:relative;">
+                        это нейтральная формула?
+                        <span id='isGeneral-answer'></span>
+                    </div>
+                    <div>
+                        <label class="container">Да
+                            <input type="radio" name="isGeneral" value="true">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">Нет
+                            <input type="radio" name="isGeneral" value="false">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="btns">
+                <button id="to-check" class="to-check">Проверить</button>
+                <button class="circle" id="nex-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="calculating.js"></script>
+    <script type="text/javascript" src="generate.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</body>
+</html>
