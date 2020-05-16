@@ -69,6 +69,8 @@ function checkIsNeutral(value){
 function checkSDNF(formula){
     if(!formulaCheck(formula)) return false;
     let arr = divideIntoArrs(formula);
+    let operands = findOperandArr();
+    if(operands.length==0) return false;
     let f = generateSDNF();
     console.log("formula", f);
     if (formula == f)
