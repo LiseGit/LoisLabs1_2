@@ -78,7 +78,7 @@ function checkSDNF(formula){if(!formulaCheck(formula)) return false;
         exp = exp.replace(f[i], "");
     do {
                 length = exp.length;
-                exp = exp.replace(/\(\)\|\(\)|\(\)/g, "");
+                exp = exp.replace(/\||\(\)/g, "");
             } while (length > exp.length);
     if (exp.length == 0)
         return true;
