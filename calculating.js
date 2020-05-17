@@ -66,14 +66,21 @@ function checkIsNeutral(value){
         return true;
 };
 //@author: Glushchenko
-function checkSDNF(formula){
-    if(!formulaCheck(formula)) return false;
+function checkSDNF(formula){if(!formulaCheck(formula)) return false;
     let arr = divideIntoArrs(formula);
     let operands = findOperandArr();
     if(operands.length==0) return false;
-    let f = generateSDNF();
-    console.log("formula", f);
-    if (formula == f)
+    var f = [];
+    f = generateSDNF();
+    let length;
+    var exp = formula;
+    for(var i=0; i<f.length; i++)
+        exp = exp.replace(f[i], "");
+    do {
+                length = exp.length;
+                exp = exp.replace(/\(\)\|\(\)|\(\)/g, "");
+            } while (length > exp.length);
+    if (exp.length == 0)
         return true;
     else
         return false;
@@ -84,56 +91,34 @@ function generateSDNF(){
     let n = _operandArr.length;
     let rez = findRezArr(n);
     let rez_elemArr = calculating();
-    let k=0, s=0, t=0;
-    let formula = "";
-     for (var i = 0; i<rez_elemArr.length; i++)
-        if(rez_elemArr[i]==1)
-            k++;
-    let h = k;
-    if (k==0)
-        return false;
-    if (k>1)
-        formula = formula.concat("(");
+    let k=0;
+    var kons = [];
     for (var i = 0; i<rez_elemArr.length; i++){
         if(rez_elemArr[i]==1){
-            if (k-h>0) {
-                    formula = formula.concat("|");
-                    if (h>1){
-                        formula = formula.concat("(");
-                        t++;
-                    }
-                }
-                h--;
-            if(n>1)
-                formula = formula.concat("(");
-            for(var j = 0; j<n; j++){
-                if (j>0) {
-                    formula = formula.concat("&");
-                    if(n-j>1){
-                        formula = formula.concat("(");
-                        s++;
-                    }
-                }
-                if (rez[i][j]==0) {
-                    formula = formula.concat("(!" + _operandArr[j] + ")");
-                }
-                else{
-                    formula = formula.concat(_operandArr[j]);
+        var formula = "";
+        var s=0;
+        for(var j = 0; j<n; j++){
+            if (j>0) {
+                formula = formula.concat("&");
+                if(n-j>1){
+                    formula = formula.concat("(");
+                    s++;
                 }
             }
-            for(let l=0; l<s; l++)
-                formula = formula.concat(")");
-            if(n>1)
-                formula = formula.concat(")");
-            
+            if (rez[i][j]==0) {
+                formula = formula.concat("(!" + _operandArr[j] + ")");
+            }
+            else{
+                formula = formula.concat(_operandArr[j]);
+            }
         }
-        s=0;
+        for(let l=0; l<s; l++)
+            formula = formula.concat(")");
+        kons[k]=formula;
+        k++;
     }
-    for(let l=0; l<t; l++)
-        formula = formula.concat(")");
-    if (k>1)
-        formula = formula.concat(")");
-    return formula;
+}
+    return kons;
 };
 
 function pushInArr(key, elem){
